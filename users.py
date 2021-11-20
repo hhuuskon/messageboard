@@ -9,7 +9,8 @@ def signup(username, password, role_id):
         sql = "INSERT INTO users (username, password, role_id) VALUES (:username,:password,:role_id)"
         db.session.execute(sql, {"username":username, "password":hash_value, "role_id":role_id})
         db.session.commit()
-    except:
+    except Exception:
+        print ("Tietokannan haussa meni jotain vihkoon, kun käyttäjää luotiin")
         return False
     return login(username, password)
 
@@ -20,15 +21,17 @@ def logout():
     del session["user_id"]
 
 def login(username, password):
-    sql = "SELECT username, id, password FROM users WHERE username=username"
+    sql = "SELECT username, id, password, role_id FROM users WHERE username=:username"
     result = db.session.execute(sql, {"username":username})
     user = result.fetchone()
+
     if not user:
         return False
     else:
         if check_password_hash(user.password, password):
             session["username"] = user.username
             session["user_id"] = user.id
+            session["role_id"] = user.role_id
             return True
         else:
             return False

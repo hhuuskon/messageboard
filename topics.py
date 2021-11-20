@@ -7,13 +7,8 @@ def get_topics():
     result = db.session.execute(sql)
     return result.fetchall()
 
-def new_topic(topic):
-    user_id = users.user.id()
-    visibilitiy = users.user.role_id
-    #for test use only
-    #user_id = 1
-    #visibility = 1
-    #username = users.user.username()
+def new_topic(topic, visibility):
+    user_id = users.user_id()
     if user_id == 0:
         return False
     sql = "INSERT INTO topics (subjects, user_id, visibility) VALUES (:subjects, :user_id, :visibility)"
