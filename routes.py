@@ -3,13 +3,10 @@ from flask import render_template, request, redirect, session
 import users
 import topics
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET"])
 def index():
     if request.method == "GET":
-        if session.get("user_id") == None:
             return render_template("/login.html")
-        else:
-            redirect("/topics")
 
 
 @app.route("/signup", methods=["GET", "POST"])
