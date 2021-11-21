@@ -2,10 +2,14 @@ from db import db
 import users
 
 def get_topics():
-    sql = "SELECT T.subjects, U.username, T.sent_at FROM topics T, users U" \
+    sql = "SELECT T.subjects, U.username, T.sent_at FROM topics T, users U " \
         "WHERE T.user_id=U.id ORDER BY T.sent_at"
     result = db.session.execute(sql)
-    return result.fetchall()
+    fetch_topics = result.fetchall()
+    if not fetch_topics:
+        return False
+    else:
+        return fetch_topics
 
 def new_topic(topic, visibility):
     user_id = users.user_id()

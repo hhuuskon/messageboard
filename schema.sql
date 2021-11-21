@@ -19,6 +19,6 @@ CREATE TABLE messages (
     content TEXT,
     user_id INTEGER REFERENCES users,
     sent_at TIMESTAMP DEFAULT Now(),
-    modified_at TIMESTAMP,
+    modified_at TIMESTAMP DEFAULT Now(),
     visibility INTEGER
 );

@@ -10,7 +10,6 @@ def signup(username, password, role_id):
         db.session.execute(sql, {"username":username, "password":hash_value, "role_id":role_id})
         db.session.commit()
     except Exception:
-        print ("Tietokannan haussa meni jotain vihkoon, kun käyttäjää luotiin")
         return False
     return login(username, password)
 

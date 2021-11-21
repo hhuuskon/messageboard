@@ -1,1 +1,12 @@
 <!DOCTYPE html>
+<title>Messages</title>
+<h1><p>Aiheessa "Tähän yhdistyy aihe myöhemmin" kirjoitettuja viestejä {{count}} kappaletta.</p></h1>
+<hr>
+{% for message in messages %}
+<b>{{ message[0] }}</b>
+<br>
+Luotu: {{ message[1].strftime("%H:%M %d.%m.%Y") }}
+<hr>
+{% endfor %}
+<p>Lisää uusi viesti <b><a href="/newmessage">tästä.</a></b></p>
+<p>Palaa aiheisiin <b><a href="/topics">tästä.</a></b></p>

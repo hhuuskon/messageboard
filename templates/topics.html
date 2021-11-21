@@ -1,3 +1,12 @@
 <!DOCTYPE html>
-<p>TERVETULOA</p>
+<title>Topics</title>
+<h1><p>Valitse itsellesi mieluisa aihe. Aiheita tällä hetkellä luotu {{count}} kappaletta.</p></h1>
+<hr>
+{% for topic in topics %}
+<b>{{ topic[0] }}</b>
+<br>
+Luonut: {{ topic[1] }} Luotu: {{ topic[2].strftime("%H:%M %d.%m.%Y") }}
+<hr>
+{% endfor %}
 <p>Lisää uusi aihe painamalla <b><a href="/newtopic">tästä.</a></b></p>
+<p>Testivaiheessa viesteihin pääsee <b><a href="/messages">tästä.</a></b></p>

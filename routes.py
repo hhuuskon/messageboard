@@ -2,6 +2,7 @@ from app import app
 from flask import render_template, request, redirect, session
 import users
 import topics
+import messages
 
 @app.route("/", methods=["GET"])
 def index():
@@ -45,9 +46,11 @@ def logout():
 
 @app.route("/topics")
 def get_topics():
-    #list = topics.get_topics()
-    #return render_template("topics.html", count=len(list), topics=list)
-    return render_template("topics.html")
+    if not topics.get_topics():
+        return render_template("topics.html", count=0)
+    else:
+        list = topics.get_topics()
+        return render_template("topics.html", count=len(list), topics=list)
 
 @app.route("/newtopic", methods=["GET", "POST"])
 def new_topic():
@@ -58,5 +61,26 @@ def new_topic():
         visibility = request.form["visibility"]
         if topics.new_topic(topic, visibility):
             return redirect("/topics")
+        else:
+            return render_template("error.html", message="Tarkista, että olet kirjautunut sisään admin oikeuksilla")
+
+@app.route("/messages")
+def get_messages():
+    if not messages.get_messages():
+        return render_template("messages.html", count=0)
+    else:
+        list = messages.get_messages()
+        return render_template("messages.html", count=len(list), messages=list)
+
+@app.route("/newmessage", methods=["GET", "POST"])
+def new_message():
+    if request.method == "GET":
+        return render_template("/newmessage.html")
+    if request.method == "POST":
+        message = request.form["new_message"]
+        visibility = request.form["visibility"]
+        topic_id = request.form["topic_id"]
+        if messages.new_message(message, visibility, topic_id):
+            return redirect("/messages")
         else:
             return render_template("error.html", message="Tarkista, että olet kirjautunut sisään admin oikeuksilla")
