@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <title>Topics</title>
-<h1><p>Valitse itsellesi mieluisa aihe. Aiheita tällä hetkellä luotu {{count}} kappaletta.</p></h1>
-<hr>
-{% for topic in topics %}
-<b>{{ topic[0] }}</b>
-<br>
-Luonut: {{ topic[1] }} Luotu: {{ topic[2].strftime("%H:%M %d.%m.%Y") }}
-<hr>
-{% endfor %}
-<p>Lisää uusi aihe painamalla <b><a href="/newtopic">tästä.</a></b></p>
-<p>Testivaiheessa viesteihin pääsee <b><a href="/messages">tästä.</a></b></p>
+<link rel="stylesheet" href="/static/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
+    <div class="header">
+        <h1>Aiheet</h1>
+    </div>
+    <div class="content">
+    <h3>Valitse itsellesi mieluisa aihe.
+        <br>
+        Aiheita tällä hetkellä luotu {{count}} kappaletta.</h3>
+    </div>
+    <div class="message_content">
+    <hr>
+    {% for topic in topics %}
+    <br>
+    Aihe:
+    <a href= "/messages/{{topic.id}}"><b>{{ topic.subjects }}</b></a>
+    <br>
+    <br>
+    Luonut: {{ topic.username }} | Luotu: {{topic.sent_at.strftime("%H:%M:%S / %d.%m.%Y ")}}
+    <hr>
+    {% endfor %}
+    </div>
+    <div class="control">
+    <p>Lisää uusi aihe painamalla <b><a href="/newtopic">tästä.</a></b></p>
+    <p>Kirjaudu ulos <b><a href="/logout">tästä.</a></b></p>
+    </div>
+    <div class="search">
+        <form action="/result" method="GET">
+            Hae viestejä: <input type="text" name="query">
+            <input type="submit" value="Hae">
+        </form>
+    </div>
+</body>

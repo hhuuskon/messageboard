@@ -1,12 +1,32 @@
 <!DOCTYPE html>
-<title>Messages</title>
-<h1><p>Aiheessa "Tähän yhdistyy aihe myöhemmin" kirjoitettuja viestejä {{count}} kappaletta.</p></h1>
-<hr>
-{% for message in messages %}
-<b>{{ message[0] }}</b>
-<br>
-Luotu: {{ message[1].strftime("%H:%M %d.%m.%Y") }}
-<hr>
-{% endfor %}
-<p>Lisää uusi viesti <b><a href="/newmessage">tästä.</a></b></p>
-<p>Palaa aiheisiin <b><a href="/topics">tästä.</a></b></p>
+<link rel="stylesheet" href="/static/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
+    <title>Messages</title>
+    <div class="header"><h1>Viestit</h1></div>
+    <div class="content">
+    <h3><p>Aiheesta {{subject}} kirjoitettuja viestejä {{count}} kappaletta.</p></h3>
+    </div>
+    <div class="message_content">
+    <hr>
+    {% for message in messages %}
+    Viesti:
+    <br>
+    {{ message.content }}
+    <br><br>
+    Kirjoittanut: {{ message.username }} | Luotu: {{ message.sent_at.strftime("%H:%M:%S / %d.%m.%Y ") }}
+    <hr>
+    {% endfor %}
+    </div>
+    <div class="control">
+    <p>Lisää uusi viesti <b><a href="/newmessage/{{message_id}}">tästä.</a></b></p>
+    <p>Palaa aiheisiin <b><a href="/topics">tästä.</a></b></p>
+    <p>Kirjaudu ulos <b><a href="/logout">tästä.</a></b></p>
+    </div>
+    <div class="search">
+        <form action="/result" method="GET">
+            Hae viestejä: <input type="text" name="query">
+            <input type="submit" value="Hae">
+        </form>
+    </div>
+</body>

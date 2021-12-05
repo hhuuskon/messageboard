@@ -1,19 +1,27 @@
 <!DOCTYPE html>
-<title>New topic</title>
-<h1>Lisää uusi aihealue</h1>
-<form action="/newtopic" method="POST">
-Aihe: 
-<br>
-<textarea name="new_topic" rows="1" cols="50"></textarea>
-<br>
-<br>
-Näkyvyys:
-<br>
-<input type="radio" name="visibility" value="1" required> Kaikille
-<input type="radio" name="visibility" value="2" required> VAIN Ylläpitäjät
-<br>
-<br>
-<input type="submit" value="Lisää aihe" required>
-</form>
-<br><br>
-<p>Etkö halua lisätä aihetta? Palaa aiheisiin <b><a href="/topics">tästä.</a></b></p>
+<link rel="stylesheet" href="/static/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
+    <title>New topic</title>
+    <div class="header">
+    <h1>Lisää uusi aihealue</h1>
+    </div>
+    <form action="/newtopic" method="POST">
+    <div class="content">
+    Aihe: 
+    <br>
+    <textarea name="new_topic" rows="1" cols="50"></textarea>
+    <br>
+    <br>
+    Näkyvyys:
+    <br>
+    <input type="radio" name="visibility" value="1" required> Kaikille
+    <input type="radio" name="visibility" value="2" required> VAIN Ylläpitäjät
+    <br>
+    <br>
+    <input type="submit" value="Lisää aihe" required>
+    </form>
+    <br><br>
+    <p>Etkö halua lisätä aihetta? Palaa aiheisiin <b><a href="/topics">tästä.</a></b></p>
+    </div>
+</body>

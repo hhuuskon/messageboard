@@ -1,23 +1,32 @@
 <!DOCTYPE html>
-<title>Sign up</title>
-<h1>Luo uusi käyttäjätunnus</h1>
-<form action="/signup" method="POST">
-<p>Käyttäjätunnus:
-<br>
-<input type="text" name="username" required minlength="4"></p>
-<p>Salasana:
-<br>
-<input type="text" name="password" required minlength="8"></p>
-<p>Toista salasana:
-<br>
-<input type="text" name="password_verif" required minlength="8"></p>
-<p>Haluan käyttää sovellusta roolilla:
-<br><br>
-<br><br>
-<input type="radio" name="role_id" value="1" required> Käyttäjä
-<input type="radio" name="role_id" value="2" required> Ylläpitäjä 
-</p>
-<p><input type="submit" value="Rekisteröidy"></p>
-</form>
-<br><br>
-<p>Onko sinulla jo käyttäjätunnus? Kirjaudu sisään <b><a href="/login">tästä.</a></b></p>
+<!DOCTYPE html>
+<link rel="stylesheet" href="/static/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
+    <title>Sign up</title>
+    <div class="header">
+    <h1>Luo uusi käyttäjätunnus</h1>
+    </div>
+    <form action="/signup" method="POST">
+    <div class="content">
+    <p>Käyttäjätunnus:
+    <br>
+    <input type="text" name="username" required minlength="4"></p>
+    <p>Salasana:
+    <br>
+    <input type="text" name="password" required minlength="8"></p>
+    <p>Toista salasana:
+    <br>
+    <input type="text" name="password_verif" required minlength="8"></p>
+    <p>Haluan käyttää sovellusta roolilla:
+    <br><br>
+    <br><br>
+    <input type="radio" name="role_id" value="1" required> Käyttäjä
+    <input type="radio" name="role_id" value="2" required> Ylläpitäjä 
+    </p>
+    <p><input type="submit" value="Rekisteröidy"></p>
+    </form>
+    <br><br>
+    <p>Onko sinulla jo käyttäjätunnus? Kirjaudu sisään <b><a href="/login">tästä.</a></b></p>
+    </div>
+</body>

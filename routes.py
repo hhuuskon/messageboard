@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, session
 import users
 import topics
 import messages
+from db import db
 
 @app.route("/", methods=["GET"])
 def index():
@@ -20,11 +21,11 @@ def signup():
         password_verif = request.form["password_verif"]
         role_id = request.form["role_id"]
         if password != password_verif:
-            return render_template("error.html", message="Salasanat eroavat toisistaan")
+            return render_template("error.html", get_back="/signup", message="Salasanat eroavat toisistaan")
         if users.signup(username, password, role_id):
             return redirect("/topics")
         else:
-            return render_template("error.html", message="Käyttäjätunnuksen tekemisessä meni jotain pieleen.")
+            return render_template("error.html", get_back="/signup", message="Käyttäjätunnuksen tekemisessä meni jotain pieleen.")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -37,7 +38,7 @@ def login():
         if users.login(username, password):
             return redirect("/topics")
         else:
-            return render_template("error.html", message="Tarkista salasana ja tunnus")
+            return render_template("error.html", get_back="/login", message="Tarkista salasana ja tunnus")
 
 @app.route("/logout")
 def logout():
@@ -46,6 +47,9 @@ def logout():
 
 @app.route("/topics")
 def get_topics():
+    user_id = users.user_id()
+    if user_id == 0:
+        return render_template("error.html", get_back="/login", message="Tarkista, että olet kirjautunut sisään.")
     if not topics.get_topics():
         return render_template("topics.html", count=0)
     else:
@@ -54,6 +58,15 @@ def get_topics():
 
 @app.route("/newtopic", methods=["GET", "POST"])
 def new_topic():
+    allow = False
+    user_id = users.user_id()
+    if user_id == 0:
+        return render_template("error.html", get_back="/login", message="Tarkista, että olet kirjautunut sisään.")
+    if users.is_admin():
+        allow = True
+    if not allow:
+        return render_template("error.html", get_back="/topics", message="Vain ylläpitäjät pystyvät luomaan uusia aiheita. " \
+        "Tarkista, että olet kirjautunut sisään ylläpitäjänä.")
     if request.method == "GET":
         return render_template("/newtopic.html")
     if request.method == "POST":
@@ -62,25 +75,43 @@ def new_topic():
         if topics.new_topic(topic, visibility):
             return redirect("/topics")
         else:
-            return render_template("error.html", message="Tarkista, että olet kirjautunut sisään admin oikeuksilla")
+            return render_template("error.html", get_back="/login", message="Tarkista, että olet kirjautunut sisään")
 
-@app.route("/messages")
-def get_messages():
-    if not messages.get_messages():
-        return render_template("messages.html", count=0)
+@app.route("/messages/<int:id>")
+def get_messages(id):
+    user_id = users.user_id()
+    if user_id == 0:
+        return render_template("error.html", get_back="/login", message="Tarkista, että olet kirjautunut sisään")
+    if not messages.get_messages(id):
+        return render_template("messages.html", count=0, subject="test", message_id=id)
     else:
-        list = messages.get_messages()
-        return render_template("messages.html", count=len(list), messages=list)
+        list = messages.get_messages(id)
+        subject = list[0][4]
+        return render_template("messages.html", count=len(list), messages=list, subject=subject, message_id=id)
 
-@app.route("/newmessage", methods=["GET", "POST"])
-def new_message():
+@app.route("/newmessage/<int:id>", methods=["GET", "POST"])
+def new_message(id):
+    user_id = users.user_id()
+    if user_id == 0:
+        return render_template("error.html", get_back="/login", message="Tarkista, että olet kirjautunut sisään")
     if request.method == "GET":
-        return render_template("/newmessage.html")
+        return render_template("/newmessage.html", message_id=id)
     if request.method == "POST":
         message = request.form["new_message"]
         visibility = request.form["visibility"]
-        topic_id = request.form["topic_id"]
-        if messages.new_message(message, visibility, topic_id):
-            return redirect("/messages")
+        if messages.new_message(message, visibility, id):
+            return redirect(f"/messages/{id}")
         else:
-            return render_template("error.html", message="Tarkista, että olet kirjautunut sisään admin oikeuksilla")
+            return render_template("error.html", get_back="/login", message="Tarkista, että olet kirjautunut sisään")
+
+@app.route("/result")
+def result():
+    query = request.args["query"]
+    user_id = users.user_id()
+    if user_id == 0:
+        return render_template("error.html", get_back="/login", message="Tarkista, että olet kirjautunut sisään")
+    if not messages.search_messages(query):
+        return render_template("error.html", get_back="/topics", message="Tällä hakusanalla ei tuloksia.")
+    else:
+        list = messages.search_messages(query)
+        return render_template("result.html", count=len(list), messages=list)

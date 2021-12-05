@@ -1,14 +1,24 @@
 <!DOCTYPE html>
-<title>Message Board</title>
-<h1>Kirjaudu sisään</h1>
-<form action="/login" method="POST">
-<p>Käyttäjätunnus:
-<br>
-<input type="text" name="username" required></p>
-<p>Salasana:
-<br>
-<input type="password" name="password" required></p>
-<p><input type="submit" value="Kirjaudu"></p>
-</form>
-<br><br>
-<p>Oletko uusi käyttäjä? Luo tunnus <b><a href="/signup">tästä.</a></b></p>
+<link rel="stylesheet" href="/static/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
+    <title>Message Board</title>
+    <div class="header">
+    <h1>Keskustelusovellus</h1>
+    Keskustelua maan ja taivaan välillä
+    </div>
+    <form action="/login" method="POST">
+    <div class="content">
+    <h2>Kirjaudu sisään</h2>
+    <p>Käyttäjätunnus:
+    <br>
+    <input type="text" name="username" required></p>
+    <p>Salasana:
+    <br>
+    <input type="password" name="password" required></p>
+    <p><input type="submit" value="Kirjaudu"></p>
+    </form>
+    <br><br>
+    <p>Oletko uusi käyttäjä? Luo tunnus <b><a href="/signup">tästä.</a></b></p>
+</div>
+</body>

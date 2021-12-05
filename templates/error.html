@@ -1,4 +1,13 @@
 <!DOCTYPE html>
-<p><b>{{ message }}</b></p>
-<br>
-<p>Siirry takaisin pääsivulle <b><a href="/login"> tästä.</a></b></p>
+<link rel="stylesheet" href="/static/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
+    <title>Error</title>
+    <div class="header">
+        <h1>Tapahtui virhe</h1>
+    </div>
+    <div class="content">
+        <p><b>{{ message }}</b></p>
+    <p>Siirry takaisin <b><a href={{ get_back }}> tästä.</a></b></p>
+    </div>
+</body>

@@ -23,7 +23,6 @@ def login(username, password):
     sql = "SELECT username, id, password, role_id FROM users WHERE username=:username"
     result = db.session.execute(sql, {"username":username})
     user = result.fetchone()
-
     if not user:
         return False
     else:
@@ -34,3 +33,14 @@ def login(username, password):
             return True
         else:
             return False
+
+def is_admin():
+    sql = "SELECT U.role_id FROM users U WHERE U.id=:user_id"
+    result = db.session.execute(sql, {"user_id":user_id()})
+    role_id = result.fetchone()
+    secret_key = role_id.role_id
+    print(role_id.role_id)
+    if secret_key == 2:
+        return True
+    else:
+        return False

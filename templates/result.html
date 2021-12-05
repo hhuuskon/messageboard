@@ -1,4 +1,31 @@
 <!DOCTYPE html>
-<p>Olemme luoneet onnistuneesti sinulle käyttäjätunnuksen: <b>{{ username }}</b></p>
-<br>
-<p>Voit nyt <b><a href="/login"> kirjautua sisään.</a></b></p>
+<link rel="stylesheet" href="/static/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
+    <title>Messages</title>
+    <div class="header">
+    <h2><p>Haun tulokset {{count}} kappaletta.</p></h2>
+    </div>
+    <div class="message_content">
+    <hr>
+    {% for message in messages %}
+    Aihealue: <a href="/messages/{{message.topic_id}}">{{message.subjects}}</a>
+    <br>
+    Viesti: {{ message.content }}
+    <br>
+    Kirjoittanut: {{ message.username }} | Luotu: {{ message.sent_at.strftime("%H:%M:%S / %d.%m.%Y ") }}
+    <br>
+    <hr>
+    {% endfor %}
+    </div>
+    <div class="control">
+    <p>Palaa aiheisiin <b><a href="/topics">tästä.</a></b></p>
+    <p>Kirjaudu ulos <b><a href="/logout">tästä.</a></b></p>
+    </div>
+    <div class="search">
+        <form action="/result" method="GET">
+            Hae viestejä: <input type="text" name="query">
+            <input type="submit" value="Hae">
+        </form>
+    </div>
+</body>

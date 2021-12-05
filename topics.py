@@ -2,7 +2,7 @@ from db import db
 import users
 
 def get_topics():
-    sql = "SELECT T.subjects, U.username, T.sent_at FROM topics T, users U " \
+    sql = "SELECT T.subjects, U.username, T.sent_at, T.id FROM topics T, users U " \
         "WHERE T.user_id=U.id ORDER BY T.sent_at"
     result = db.session.execute(sql)
     fetch_topics = result.fetchall()

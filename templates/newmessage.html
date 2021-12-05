@@ -1,24 +1,27 @@
 <!DOCTYPE html>
-<title>New message</title>
-<h1>Lisää uusi viesti haluamallesi alueelle</h1>
-<form action="/newmessage" method="POST">
-Aihe: 
-<br>
-<textarea name="new_message" rows="3" cols="50"></textarea>
-<br>
-<br>
-Näkyvyys:
-<br>
-<input type="radio" name="visibility" value="1" required> Kaikille
-<input type="radio" name="visibility" value="2" required> VAIN Ylläpitäjät
-<br>
-<br>
-<input type="submit" value="Lisää viesti" required>
-<br>
-<br>
-Testaamista varten valittava "topic_id": (anna numero 1-6):
-<br>
-<textarea name="topic_id" rows="1" cols="50"></textarea>
-</form>
-<br><br>
-<p>Etkö halua kirjoittaa viestiä? Palaa aiheeseen <b><a href="/messages">tästä.</a></b></p>
+<link rel="stylesheet" href="/static/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
+    <title>New message</title>
+    <div class="header">
+    <h2>Lisää uusi viesti</h2>
+    </div>
+    <form action="/newmessage/{{message_id}}" method="POST">
+        <div class="content">
+            Viesti: 
+            <br>
+            <textarea name="new_message" rows="3" cols="50"></textarea>
+            <br>
+            <br>
+            Näkyvyys:
+            <br>
+            <input type="radio" name="visibility" value="1" required> Kaikille
+            <input type="radio" name="visibility" value="2" required> VAIN Ylläpitäjät
+            <br>
+            <br>
+            <input type="submit" value="Lisää viesti" required>
+        </form>
+    <br><br>
+    <p>Etkö halua kirjoittaa viestiä? Palaa aiheeseen <b><a href="/messages/{{message_id}}">tästä.</a></b></p>
+</div>
+</body>
