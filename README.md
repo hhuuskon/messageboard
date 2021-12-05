@@ -32,6 +32,33 @@ Parannettavaa seuraavaan versioon
 - Ominaisuuksien ja tietokannan taulujen lisääminen.
 - Paremman ulkoasun hahmottelu.
 
+# Versio 1.1
+Palautus 3
+
+Tietokantasovelluksen uusin versio on testattavissa [Herokussa](https://tsoha-messageboard.herokuapp.com/)
+
+Tähän versioon tehdyt lisäykset ja parannukset:
+- Ulkoasu on lisätty.
+- Aiheiden lisääminen onnistuu nyt vain ylläpitäjiltä.
+- Ylläpitäjä voi luoda alueen jonne pääsee vain ylläpitäjät.
+- Hakutoiminto on lisätty.
+- Aiheet ovat yhdistetty viesteihin. Aihetta painamalla pääsee lukemaan siihen aiheeseen kirjotetut viestit.
+
+Tietoturvan kannalta tehdyt parannukset:
+- Ylläpitäjän rooli on otettu käyttöön esimerkiksi aiheiden lisäämisessä.
+- Kirjautumisen tarkistuksia on lisätty, ettei aiheisiin tai viesteihin pääse käsiksi ilman kirjautumista.
+
+Huomioita:
+- Uloskirjaumisen yhteydessä käyttäjä jää "roikkumaan". Jos samalla koneella kirjautuu uusi käyttäjä niin hänen kirjoittamansa viestit tulevat tuplana tietokantaan.
+- Ylläpitäjille tarkoitetulle keskustelualueelle pääsee kiertämään sisään muokkaamassa selaimen osoitetta kirjoittaessa uutta viestiä.
+
+Parannettavaa seuraavaan versioon
+- Viesteihin pitäisi vielä saada seuraava taso. Nykyiset viestit olisivat viestiketjuja joiden sisään pääsee vielä lisäämään erikseen viestin.
+- Ulkoasun parantelua ja tekstien parempaa sommittelua.
+- Virheiden korjausta.
+
+
+
 # Ominaisuudet:
 
 Sovelluksen ominaisuudet:
