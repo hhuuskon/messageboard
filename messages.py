@@ -2,7 +2,7 @@ from db import db
 import users
 
 def get_messages(id):
-    sql = "SELECT U.username, M.content, M.sent_at, T.id, T.subjects FROM messages M, topics T, users U " \
+    sql = "SELECT U.username, M.content, M.sent_at, T.id, T.subjects, M.id FROM messages M, topics T, users U " \
         "WHERE M.topic_id=T.id AND T.id=:id ORDER BY M.sent_at"
     result = db.session.execute(sql, {"id":id})
     fetch_messages = result.fetchall()
@@ -29,3 +29,25 @@ def search_messages(query):
         return False
     else:
         return fetch_messages
+
+def get_submessages(id):
+    print("MENEE HAKEMAAN VIESTEJÄ")
+    sql = "SELECT DISTINCT U.username, S.content, S.sent_at, S.message_id, M.content FROM messages M, users U, submessages S " \
+        "WHERE S.message_id=M.id AND M.id=:id ORDER BY S.sent_at"
+    result = db.session.execute(sql, {"id":id})
+    fetch_messages = result.fetchall()
+    if not fetch_messages:
+        return False
+    else:
+        return fetch_messages
+
+def new_submessage(message, visibility, message_id):
+    print("HUJAHTAA NEW SUB MESSAGESIIN NIIN, ETTÄ HEILAHTAA!")
+    user_id = users.user_id()
+    if user_id == 0:
+        return False
+    sql = "INSERT INTO submessages (message_id, content, visibility) VALUES (:message_id, :content, :visibility)"
+    db.session.execute(sql, {"message_id":message_id, "content":message, "visibility":visibility})
+    db.session.commit()
+    return True
+

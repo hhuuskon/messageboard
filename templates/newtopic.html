@@ -10,7 +10,7 @@
     <div class="content">
     Aihe: 
     <br>
-    <textarea name="new_topic" rows="1" cols="50"></textarea>
+    <textarea name="new_topic" rows="1" required cols="50"></textarea>
     <br>
     <br>
     Näkyvyys:
@@ -20,6 +20,7 @@
     <br>
     <br>
     <input type="submit" value="Lisää aihe" required>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
     <br><br>
     <p>Etkö halua lisätä aihetta? Palaa aiheisiin <b><a href="/topics">tästä.</a></b></p>

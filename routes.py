@@ -1,3 +1,4 @@
+from os import abort
 from app import app
 from flask import render_template, request, redirect, session
 import users
@@ -70,6 +71,8 @@ def new_topic():
     if request.method == "GET":
         return render_template("/newtopic.html")
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
         topic = request.form["new_topic"]
         visibility = request.form["visibility"]
         if topics.new_topic(topic, visibility):
@@ -97,6 +100,8 @@ def new_message(id):
     if request.method == "GET":
         return render_template("/newmessage.html", message_id=id)
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
         message = request.form["new_message"]
         visibility = request.form["visibility"]
         if messages.new_message(message, visibility, id):
@@ -112,6 +117,42 @@ def result():
         return render_template("error.html", get_back="/login", message="Tarkista, että olet kirjautunut sisään")
     if not messages.search_messages(query):
         return render_template("error.html", get_back="/topics", message="Tällä hakusanalla ei tuloksia.")
+    if len(query) <= 0:
+        return render_template("error.html", get_back="/topics", message="Syötä hakusana!")
     else:
         list = messages.search_messages(query)
         return render_template("result.html", count=len(list), messages=list)
+
+@app.route("/submessages/<int:id>")
+def get_submessages(id):
+    print("MENEE ROUTESISSA OIKEAAN FUNKTIOON")
+    user_id = users.user_id()
+    if user_id == 0:
+        return render_template("error.html", get_back="/login", message="Tarkista, että olet kirjautunut sisään")
+    if not messages.get_submessages(id):
+        print("KÄY SUB MESSAGE GET LÄPI, MUTTA ANTAA ERROR")
+        return render_template("submessages.html", count=0, subject="test", message_id=id)
+    else:
+        print("MENEE JO SGET SUBMESSAGESIN LÄPI JA LÖYTÄÄ TIETOJA")
+        list = messages.get_submessages(id)
+        subject = list[0][4]
+        m_id = list[0][3]
+        print(list)
+        return render_template("submessages.html", count=len(list), messages=list, subject=subject, message_id=id, m_id=m_id)
+
+@app.route("/newsubmessage/<int:id>", methods=["GET", "POST"])
+def new_submessage(id):
+    user_id = users.user_id()
+    if user_id == 0:
+        return render_template("error.html", get_back="/login", message="Tarkista, että olet kirjautunut sisään")
+    if request.method == "GET":
+        return render_template("/newsubmessage.html", message_id=id)
+    if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
+        message = request.form["new_submessage"]
+        visibility = 0
+        if messages.new_submessage(message, visibility, id):
+            return redirect(f"/submessages/{id}")
+        else:
+            return render_template("error.html", get_back="/login", message="Tarkista, että olet kirjautunut sisään")

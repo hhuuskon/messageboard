@@ -2,25 +2,25 @@
 <link rel="stylesheet" href="/static/main.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <body>
-    <title>Messages</title>
-    <div class="header"><h1>Viestiketjut</h1></div>
+    <title>SubMessages</title>
+    <div class="header"><h1>Viestit</h1></div>
     <div class="content">
-    <h3><p>Aiheesta {{subject}} kirjoitettuja viestiketjuja {{count}} kappaletta.</p></h3>
+    <h3><p>Aiheesta {{subject}} kirjoitettuja viestejä {{count}} kappaletta.</p></h3>
     </div>
     <div class="message_content">
     <hr>
     {% for message in messages %}
     Viesti:
     <br>
-    <a href= "/submessages/{{ message[5] }}"> <b>{{ message.content }}</b></a>
+    {{ message[1] }}
     <br><br>
     Kirjoittanut: {{ message.username }} | Luotu: {{ message.sent_at.strftime("%H:%M:%S / %d.%m.%Y ") }}
     <hr>
     {% endfor %}
     </div>
     <div class="control">
-    <p>Lisää uusi viestiketju <b><a href="/newmessage/{{message_id}}">tästä.</a></b></p>
-    <p>Palaa aiheisiin <b><a href="/topics">tästä.</a></b></p>
+    <p>Lisää uusi viesti <b><a href="/newsubmessage/{{message_id}}">tästä.</a></b></p>
+    <p>Palaa viesteihin <b><a href="/messages/{{m_id}}">tästä.</a></b></p>
     <p>Kirjaudu ulos <b><a href="/logout">tästä.</a></b></p>
     </div>
     <div class="search">

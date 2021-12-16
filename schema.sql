@@ -22,3 +22,19 @@ CREATE TABLE messages (
     modified_at TIMESTAMP DEFAULT Now(),
     visibility INTEGER
 );
+
+CREATE TABLE submessages (
+    id SERIAL PRIMARY KEY,
+    message_id INTEGER REFERENCES messages,
+    content TEXT,
+    sent_at TIMESTAMP DEFAULT Now(),
+    modified_at TIMESTAMP DEFAULT Now(),
+    visibility INTEGER
+);
+
+CREATE TABLE reputation (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users,
+    amout INTEGER
+
+);
