@@ -2,21 +2,20 @@
 <link rel="stylesheet" href="/static/main.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <body>
-    <title>Messages</title>
+    <title>Ownmessages</title>
     <div class="header">
     <h2><p>Haun tulokset {{count}} kappaletta.</p></h2>
     </div>
     <div class="message_content">
     <hr>
     {% for message in messages %}
-    Aihealue: <a href="/messages/{{message.topic_id}}">{{message.subjects}}</a>
-    <br>
-    Viestiketju: <a href="/submessages/{{message.id}}">{{ message[4] }}</a>
+    Viestiketju: {{ message[1] }}
     <br>
     Viesti: {{ message.content }}
     <br>
     Kirjoittanut: {{ message.username }} | Luotu: {{ message.sent_at.strftime("%H:%M:%S / %d.%m.%Y ") }}
     <br>
+    <p> Muokkaa tätä viestiä <b><a href="/modifymessage/{{message.id}}">tästä.</a></b>
     <hr>
     {% endfor %}
     </div>

@@ -125,19 +125,15 @@ def result():
 
 @app.route("/submessages/<int:id>")
 def get_submessages(id):
-    print("MENEE ROUTESISSA OIKEAAN FUNKTIOON")
     user_id = users.user_id()
     if user_id == 0:
         return render_template("error.html", get_back="/login", message="Tarkista, että olet kirjautunut sisään")
     if not messages.get_submessages(id):
-        print("KÄY SUB MESSAGE GET LÄPI, MUTTA ANTAA ERROR")
-        return render_template("submessages.html", count=0, subject="test", message_id=id)
+        return render_template("submessages.html", count=0, subject="", message_id=id)
     else:
-        print("MENEE JO SGET SUBMESSAGESIN LÄPI JA LÖYTÄÄ TIETOJA")
         list = messages.get_submessages(id)
         subject = list[0][4]
         m_id = list[0][3]
-        print(list)
         return render_template("submessages.html", count=len(list), messages=list, subject=subject, message_id=id, m_id=m_id)
 
 @app.route("/newsubmessage/<int:id>", methods=["GET", "POST"])
@@ -154,5 +150,34 @@ def new_submessage(id):
         visibility = 0
         if messages.new_submessage(message, visibility, id):
             return redirect(f"/submessages/{id}")
+        else:
+            return render_template("error.html", get_back="/login", message="Tarkista, että olet kirjautunut sisään")
+
+@app.route("/ownmessages")
+def search_own_messages():
+    user_id = users.user_id()
+    if user_id == 0:
+        return render_template("error.html", get_back="/login", message="Tarkista, että olet kirjautunut sisään")
+    if not messages.search_own_messages(user_id):
+        return render_template("error.html", get_back="/topics", message="Et ole tainnut kirjottaa viestejä.")
+    else:
+        list = messages.search_own_messages(user_id)
+        return render_template("ownmessages.html", count=len(list), messages=list)
+
+
+@app.route("/modifymessage/<int:id>", methods=["GET", "POST"])
+def modifymessage(id):
+    user_id = users.user_id()
+    if user_id == 0:
+        return render_template("error.html", get_back="/login", message="Tarkista, että olet kirjautunut sisään")
+    if request.method == "GET":
+        message = messages.get_message_to_modify(id, user_id)
+        return render_template("/modifymessage.html", message=message, message_id=id)
+    if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
+        message = request.form["modifymessage"]
+        if messages.modifymessage(message, id):
+            return redirect("/ownmessages")
         else:
             return render_template("error.html", get_back="/login", message="Tarkista, että olet kirjautunut sisään")

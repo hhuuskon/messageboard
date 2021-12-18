@@ -10,7 +10,7 @@
     <div class="message_content">
     <hr>
     {% for message in messages %}
-    Viesti:
+    Viestiketju:
     <br>
     <a href= "/submessages/{{ message[5] }}"> <b>{{ message.content }}</b></a>
     <br><br>
@@ -28,5 +28,8 @@
             Hae viestejä: <input type="text" name="query">
             <input type="submit" value="Hae">
         </form>
+    </div>
+    <div class="search">
+        <p>Hae ja muokkaa omia viestejäsi <b><a href="/ownmessages">tästä.</a></b></p>
     </div>
 </body>

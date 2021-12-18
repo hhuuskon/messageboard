@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="/static/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
+    <title>Modify Message</title>
+    <div class="header">
+    <h2>Muokkaa kirjoittamaasi viestiä</h2>
+    "{{ message[0][0] }}"
+    </div>
+    <form action="/modifymessage/{{message_id}}" method="POST">
+
+        <div class="content">
+            Muokattu viesti: 
+            <br>
+            <textarea name="modifymessage" rows="3" required cols="50"></textarea>
+            <br>
+            <br>
+            <br>
+            <input type="submit" value="Lisää viesti" required>
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            <input type="hidden" name="message_id" value="{{ message[0][1] }}">
+        </form>
+    <br><br>
+    <p>Etkö halua muokata viestiä? Palaa vieteihisi <b><a href="/ownmessages">tästä.</a></b></p>
+</div>
+</body>
