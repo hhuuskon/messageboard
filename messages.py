@@ -22,7 +22,7 @@ def new_message(message, visibility, topic_id):
 
 def search_messages(query):
     sql = "SELECT U.username, T.subjects, M.topic_id, M.id, M.content, M.sent_at, S.content FROM messages M, users U, topics T, submessages S " \
-        "WHERE M.topic_id=T.id AND S.content LIKE :query"
+        "WHERE U.id=S.user_id AND M.id=S.message_id AND S.content ILIKE :query"
     result = db.session.execute(sql, {"query":"%"+query+"%"})
     fetch_messages = result.fetchall()
     if not fetch_messages:
