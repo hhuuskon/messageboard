@@ -133,7 +133,7 @@ def get_submessages(id):
     else:
         list = messages.get_submessages(id)
         subject = list[0][4]
-        m_id = list[0][3]
+        m_id = list[0][5]
         return render_template("submessages.html", count=len(list), messages=list, subject=subject, message_id=id, m_id=m_id)
 
 @app.route("/newsubmessage/<int:id>", methods=["GET", "POST"])

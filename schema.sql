@@ -26,6 +26,7 @@ CREATE TABLE messages (
 CREATE TABLE submessages (
     id SERIAL PRIMARY KEY,
     message_id INTEGER REFERENCES messages,
+    user_id INTEGER REFERENCES users,
     content TEXT,
     sent_at TIMESTAMP DEFAULT Now(),
     modified_at TIMESTAMP DEFAULT Now(),
