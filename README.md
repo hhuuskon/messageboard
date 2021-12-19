@@ -57,7 +57,32 @@ Parannettavaa seuraavaan versioon
 - Ulkoasun parantelua ja tekstien parempaa sommittelua.
 - Virheiden korjausta.
 
+# Vesio 1.2
+Viimeinen palautus
 
+Tietokantasovelluksen uusin versio on testattavissa [Herokussa](https://tsoha-messageboard.herokuapp.com/)
+
+Tähän versioon tehdyt lisäykset ja parannukset:
+- Ulkoasu on viimeistelty. Ohje tekstit on käyty lävitse ja mietitty mahdollisimman hyödyllisiksi käyttäjälle. Ulkoasu on yhtenäistetty kaikille sivuille samaksi.
+- Viesteihin on lisätty "uusi ulottuvuus". Aikaisemmin käyttäjä kirjoitti viestin suoraan aiheeseen. Nyt on lisätty rakenne jossa on aihe, viestiketju sekä lopuksi vasta viestit.
+- Hakutoiminto on viimeistelty ja sitä on monipuolistettu esimerkiksi suorilla linkeillä joilla voi siirtyä esimerkiksi aiheeseen. 
+- Hakua on paranneltu ymmärtämään syötteitä vaikka viesti sisältäisi isoja kirjaimia.
+- Viestien muokkaustoiminta on lisätty. Käyttäjä pääsee kätevästi näkemään omat viestinsä koosteena ja muokkaamaan niitä halutessaan.
+- Viesteistä voi nyt tykätä ja ne kerryttävät viestien kirjoittajalle tykkäyksiä. Tykkäysten määrä on nähtävissä koosteena sille varatulla sivulla.
+- Taulujen määrää on lisätty ominaisuuksien kasvaessa.
+- Tietokantoja käsitellään monipuolisemmin.
+- Syötteiden validointia on parannettu. Tyhjiä kenttiä ei pitäisi pystyä lähettämään. Tykkäykset onnistuvat vain toisten viesteistä.
+
+Tietoturvan kannalta tehdyt parannukset:
+- CSRF-haavoittuvuus on paikattu.
+
+Huomioita:
+- Ylläpitäjän rooli ei aivan asetu kohdilleen. Piilotettuja ylläpitäjien kanavia ei alkuperäisen suunnitelman mukaisesti vielä löydy.
+- Satunnaisesti, mutta harvoin edellisiin sivuihin palaamiseen tarkoitetut painikkeet johdattavat virheelliselle sivulle.
+- Alkuperäisen suunnitelman mukaisia aikaleimoja esimerkiksi muokatuista viesteistä puuttuu.
+- Alkuperäisen suunnitelman vastaisesti viestien poistaminen ei toimi.
+- Vastapainoksi alkuperäisen suunnitelman "mahdollisia ominaisuuksia" on otettu käyttöön. 
+- Lisäksi jo toiminnassa olevista ominaisuuksista on yritetty tehdä mahdollisimman laadukkaita ja monipuolisia.
 
 # Ominaisuudet:
 
