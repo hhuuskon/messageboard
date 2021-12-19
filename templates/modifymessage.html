@@ -4,8 +4,10 @@
 <body>
     <title>Modify Message</title>
     <div class="header">
-    <h2>Muokkaa kirjoittamaasi viestiä</h2>
-    "{{ message[0][0] }}"
+        <h1>Muokkaa kirjoittamaasi viestiä</h1>
+    </div>
+    <div class="content">
+    <b>"{{ message[0][0] }}"</b>
     </div>
     <form action="/modifymessage/{{message_id}}" method="POST">
 

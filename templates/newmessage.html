@@ -4,11 +4,11 @@
 <body>
     <title>New message</title>
     <div class="header">
-    <h2>Lisää uusi viesti</h2>
+    <h2>Lisää uusi viestiketju</h2>
     </div>
     <form action="/newmessage/{{message_id}}" method="POST">
         <div class="content">
-            Viesti: 
+            Viestiketjun nimi: 
             <br>
             <textarea name="new_message" rows="3" required cols="50"></textarea>
             <br>
@@ -19,10 +19,10 @@
             <input type="radio" name="visibility" value="2" required> VAIN Ylläpitäjät
             <br>
             <br>
-            <input type="submit" value="Lisää viesti" required>
+            <input type="submit" value="Lisää viestiketju" required>
             <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         </form>
     <br><br>
-    <p>Etkö halua kirjoittaa viestiä? Palaa aiheeseen <b><a href="/messages/{{message_id}}">tästä.</a></b></p>
+    <p>Etkö halua aloittaa uutta viestiketjua? Palaa aiheeseen <b><a href="/messages/{{message_id}}">tästä.</a></b></p>
 </div>
 </body>

@@ -181,3 +181,24 @@ def modifymessage(id):
             return redirect("/ownmessages")
         else:
             return render_template("error.html", get_back="/login", message="Tarkista, että olet kirjautunut sisään")
+
+
+@app.route("/reputation", methods=["GET", "POST"])
+def reputation():
+    user_id = users.user_id()
+    if user_id == 0:
+        return render_template("error.html", get_back="/login", message="Tarkista, että olet kirjautunut sisään")
+    if request.method == "GET":
+        print("menee routes")
+        list = users.get_reputation()
+        return render_template("/reputation.html", list=list)
+    if request.method == "POST":
+        id = request.form["user_id"]
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
+        if int(id) == user_id:
+            return render_template("error.html", get_back="/reputation", message="Et voi äänestää itseäsi")
+        if users.add_reputation(id):
+            return redirect("/reputation")
+        else:
+            return render_template("error.html", get_back="/login", message="Tarkista, että olet kirjautunut sisään")

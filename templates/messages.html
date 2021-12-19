@@ -10,11 +10,11 @@
     <div class="message_content">
     <hr>
     {% for message in messages %}
-    Viestiketju:
     <br>
+    Viestiketju: 
     <a href= "/submessages/{{ message[5] }}"> <b>{{ message.content }}</b></a>
     <br><br>
-    Kirjoittanut: {{ message.username }} | Luotu: {{ message.sent_at.strftime("%H:%M:%S / %d.%m.%Y ") }}
+    Aloittanut: {{ message.username }} | Luotu: {{ message.sent_at.strftime("%H:%M:%S / %d.%m.%Y ") }}
     <hr>
     {% endfor %}
     </div>

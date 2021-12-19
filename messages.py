@@ -22,7 +22,7 @@ def new_message(message, visibility, topic_id):
 
 def search_messages(query):
     sql = "SELECT U.username, T.subjects, M.topic_id, M.id, M.content, M.sent_at, S.content FROM messages M, users U, topics T, submessages S " \
-        "WHERE U.id=S.user_id AND M.id=S.message_id AND S.content ILIKE :query"
+        "WHERE U.id=M.user_id AND M.id=S.message_id AND T.id=M.topic_id AND S.content ILIKE :query"
     result = db.session.execute(sql, {"query":"%"+query+"%"})
     fetch_messages = result.fetchall()
     if not fetch_messages:
@@ -31,7 +31,7 @@ def search_messages(query):
         return fetch_messages
 
 def get_submessages(id):
-    sql = "SELECT DISTINCT U.username, S.content, S.sent_at, S.message_id, M.content, M.topic_id FROM messages M, users U, submessages S " \
+    sql = "SELECT DISTINCT U.username, S.content, S.sent_at, S.message_id, M.content, M.topic_id, U.id FROM messages M, users U, submessages S " \
         "WHERE S.message_id=M.id AND M.id=:id AND S.user_id=U.id ORDER BY S.sent_at DESC"
     result = db.session.execute(sql, {"id":id})
     fetch_messages = result.fetchall()

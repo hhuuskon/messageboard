@@ -12,9 +12,15 @@
     {% for message in messages %}
     Viesti:
     <br>
-    {{ message[1] }}
+    <i>{{ message[1] }}</i>
     <br><br>
     Kirjoittanut: {{ message.username }} | Luotu: {{ message.sent_at.strftime("%H:%M:%S / %d.%m.%Y ") }}
+    <br>
+    <form action="/reputation" method="POST">
+        Tykkää tästä viestistä: <input type="submit" value="&#128525;">
+        <input type="hidden" name="user_id" value="{{message[6]}}">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    </form>
     <hr>
     {% endfor %}
     </div>

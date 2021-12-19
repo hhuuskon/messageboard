@@ -35,7 +35,5 @@ CREATE TABLE submessages (
 
 CREATE TABLE reputation (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users,
-    amout INTEGER
-
+    user_id INTEGER REFERENCES users
 );

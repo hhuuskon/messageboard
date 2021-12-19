@@ -46,3 +46,24 @@ def is_admin():
         return True
     else:
         return False
+
+def add_reputation(id):
+    try:
+        sql = "INSERT INTO reputation (user_id) VALUES (:user_id)"
+        db.session.execute(sql, {"user_id":id})
+        db.session.commit()
+    except Exception:
+        return False
+    return True
+
+def get_reputation():
+    print("menee sql")
+    sql = "SELECT U.username, COUNT(R.user_id) FROM reputation R, users U WHERE U.id=R.user_id GROUP BY U.username ORDER BY COUNT(R.user_id) DESC"
+    result = db.session.execute(sql)
+    fetch_reputation = result.fetchall()
+    if not fetch_reputation:
+        return False
+    else:
+        return fetch_reputation
+
+
